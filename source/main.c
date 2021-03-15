@@ -245,11 +245,9 @@ unsigned char ballrowarr[5] = {0xFE,0xFD,0xFB,0xF7,0xEF};
 unsigned char ballcol[6] = {0x02,0x04,0x08,0x10,0x20,0x40};
 unsigned char col = 0x00;
 unsigned char r = 0x00;
-unsigned char yflag = 0x00;
-//unsigned char xflag = 4;
-unsigned char rflag = 0;
-unsigned char itrow = 0;
+unsigned char itrow = 2;
 unsigned char itcol = 2;
+unsigned char bound = 2;
 enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bounce7,bounce8,bouncecheck,rightcheck,bounce9,bounce10,bounce11,bounce12,bounce13,reset} bal;
 void ballm(){
 	switch(bal){
@@ -262,7 +260,6 @@ void ballm(){
 			r = ballrowarr[itrow];
 			col = ballcol[itcol];
 			itcol++;
-	//		xflag--;
 			bal = bounce1;
 
 		break;
@@ -271,44 +268,83 @@ void ballm(){
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
 		itcol++;
-	//	xflag--;
 		bal = bounce2;
 		break;
 	case bounce2:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
 		itcol++;
-	//	xflag--;
 		bal = bounce3;
 		break;
 	case bounce3:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
-	//	xflag--;
 		bal = bouncecheck;
 		break;
 
 	case bouncecheck:
-		if (ballrowarr[itrow] == arr[temp1]){
+		if (ballrowarr[itrow] == arr[temp1]){//middle
 		itcol--;
 		bal = bounce4;
 		}
-		
+		else if (ballrowarr[itrow] == arr[temp]){//top
+		bound--;
+		itcol--;
+		itrow--;
+		bal = bounce4;
+		}
 		else{
 			bal = reset;
 		}
 		break;
 	case bounce4:
+		if (bound == 2){
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
 		itcol--;
 		bal = bounce5;
+		}
+		else if (bound < 2 && bound != 0){
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bound--;
+		itcol--;
+		itrow--;
+		bal = bounce5;
+		}
+		else if (bound == 0){
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bound++;
+		itcol--;
+		itrow++;
+		bal = bounce5;
+		}
+
 		break;
 	case bounce5:
+		if (bound == 2){
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
 		itcol--;
 		bal = bounce6;
+		}
+		else if (bound < 2 && bound != 0){
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bound--;
+		itcol--;
+		itrow--;
+		bal = bounce6;
+		}
+		else if (bound == 0){
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bound++;
+		itcol--;
+		itrow++;
+		bal = bounce6;
+		}
 		break;
 	case bounce6:
 		col = ballcol[itcol];
