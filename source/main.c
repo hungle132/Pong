@@ -215,17 +215,17 @@ void show(){
 
 		case a1:
 			p1 = arr3[0];
-			r1 = arr2[0];
+			r1 = arr2[1];
 			s = a2;
 			break;
 		case a2:
 			p1 = arr3[1];
-			r1 = arr2[1];
+			r1 = arr2[2];
 			s = a3;
 			break;
 		case a3:
 			p1 = arr3[2];
-			r1 = arr2[2];
+			r1 = arr2[3];
 			s = a1;
 			break;
 		default:
@@ -242,27 +242,27 @@ unsigned char test = 0x10;
 unsigned char test1 = 0xBF;
 //unsigned long balltime = 0x00;
 unsigned char ballrowarr[1] = {0xFB};
-unsigned char ballcol[4] = {0x08,0x10,0x20,0x40};
+unsigned char ballcol[6] = {0x02,0x04,0x08,0x10,0x20,0x40};
 unsigned char col = 0x00;
 unsigned char r = 0x00;
 unsigned char yflag = 0x00;
-unsigned char xflag = 4;
+//unsigned char xflag = 4;
 unsigned char rflag = 0;
 unsigned char itrow = 0;
-unsigned char itcol = 0;
-enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bouncecheck,reset} bal;
+unsigned char itcol = 2;
+enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bounce7,bounce8,bouncecheck,rightcheck,bounce9,bounce10,bounce11,bounce12,bounce13,reset} bal;
 void ballm(){
 	switch(bal){
 	case startball:
 		itrow = 0;
-		itcol = 0;
+		itcol = 2;
 		bal = bounce;
 		break;
 	case bounce:
 			r = ballrowarr[itrow];
 			col = ballcol[itcol];
 			itcol++;
-			xflag--;
+	//		xflag--;
 			bal = bounce1;
 
 		break;
@@ -271,25 +271,26 @@ void ballm(){
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
 		itcol++;
-		xflag--;
+	//	xflag--;
 		bal = bounce2;
 		break;
 	case bounce2:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
 		itcol++;
-		xflag--;
+	//	xflag--;
 		bal = bounce3;
 		break;
 	case bounce3:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
-		xflag--;
+	//	xflag--;
 		bal = bouncecheck;
 		break;
 
 	case bouncecheck:
-		if (ballrowarr[itrow] == arr[0] || ballrowarr[itrow] == arr[1] || ballrowarr[itrow] == arr[2] || ballrowarr[itrow] == arr[3]){
+	//	if (ballrowarr[itrow] == arr[temp] || ballrowarr[itrow] == arr[temp1] || ballrowarr[itrow] == arr[temp2]){
+		if (ballrowarr[itrow] == arr[temp1]){
 		itcol--;
 	bal = bounce4;
 		}
@@ -301,11 +302,70 @@ void ballm(){
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
 		itcol--;
-		bal = reset;
+		bal = bounce5;
 		break;
 	case bounce5:
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		itcol--;
+		bal = bounce6;
 		break;
 	case bounce6:
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		itcol--;
+		bal = bounce7;
+		break;
+	case bounce7:
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		itcol--;
+		bal = bounce8;
+		break;
+	case bounce8:
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		itcol--;
+		bal = rightcheck;
+		break;
+	case rightcheck:
+		if (ballrowarr[itrow] == arr2[2]){
+		itcol++;
+		bal = bounce9;
+		}
+		else{
+		bal = reset;
+		}
+		break;
+	case bounce9:
+		itcol++;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce10;
+		break;
+	case bounce10:
+		itcol++;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce11;
+	break;
+	case bounce11:
+		itcol++;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce12;
+		break;
+	case bounce12:
+		itcol++;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce13;
+		break;
+	case bounce13:
+		itcol++;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bouncecheck;
 		break;
 	case reset:
 		bal = startball;
@@ -313,31 +373,6 @@ void ballm(){
 	default:
 		bal = startball;
 		break;
-	}
-	switch(bal){
-	case startball:
-		break;
-	case bounce:
-
-		break;
-
-	case bounce1:
-		break;
-
-	case bounce2:
-	break;
-	case bounce3:
-	break;
-	case bounce4:
-	break;
-	case bounce5:
-	break;
-	case bounce6:
-	break;
-	case bouncecheck:
-	break;
-	case reset:
-	break;
 	}
 
 
