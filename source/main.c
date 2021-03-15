@@ -241,7 +241,7 @@ unsigned char ball = 0x08;
 unsigned char test = 0x10;
 unsigned char test1 = 0xBF;
 //unsigned long balltime = 0x00;
-unsigned char ballrowarr[1] = {0xFB};
+unsigned char ballrowarr[5] = {0xFE,0xFD,0xFB,0xF7,0xEF};
 unsigned char ballcol[6] = {0x02,0x04,0x08,0x10,0x20,0x40};
 unsigned char col = 0x00;
 unsigned char r = 0x00;
@@ -254,7 +254,7 @@ enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,boun
 void ballm(){
 	switch(bal){
 	case startball:
-		itrow = 0;
+		itrow = 2;
 		itcol = 2;
 		bal = bounce;
 		break;
@@ -289,11 +289,11 @@ void ballm(){
 		break;
 
 	case bouncecheck:
-	//	if (ballrowarr[itrow] == arr[temp] || ballrowarr[itrow] == arr[temp1] || ballrowarr[itrow] == arr[temp2]){
 		if (ballrowarr[itrow] == arr[temp1]){
 		itcol--;
-	bal = bounce4;
+		bal = bounce4;
 		}
+		
 		else{
 			bal = reset;
 		}
