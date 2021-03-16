@@ -95,6 +95,8 @@ enum dis{a,b,c}state;
 enum dis1{a1,a2,a3}s;
 enum joy{start,wait,up,down,but1,but2}move;
 enum but{up1,down1,wait1}m;
+enum movement{st,wa,ups,downs,but3,but4}j;
+
 unsigned short vak = 0x00;
 unsigned char flag = 1;
 unsigned char flag1 = 1;
@@ -104,6 +106,99 @@ unsigned char d = 0x00;
 unsigned char u = 0x00;
 //unsigned char ball = 0x08;
 unsigned char glo = 1;
+unsigned short ele = 0x00;
+unsigned char checker = 1;
+
+unsigned char sec = 1;
+unsigned char sec1 = 2;
+unsigned char sec2 = 3;
+
+
+
+void secondplayer(){
+	Set_A2D_Pin(0x02);
+	ele = ADC;
+	switch (j){
+	case st:
+		j = wa;
+		break;
+	case wa: // 150 = down 700 = up
+		if (ele > 700 && checker != 0){
+		j = ups;
+		}
+		else if ( ele < 150 && checker != 2){
+		j = downs;
+		}
+		else{
+		j = wa;
+		}
+		break;
+	case ups:
+		if (checker == 2){
+		sec = 1;
+		sec1 = 2;
+		sec2 = 3;
+		checker--;
+		j = but3;
+		}
+		else if (checker == 1){
+		sec = 0;
+		sec1 = 1;
+		sec2 = 2;
+		checker--;
+		j = but3;
+		}
+		else if (checker == 0){
+		j = wa;
+		}
+		break;
+	case downs:
+		if (checker == 1){
+		sec = 2;
+		sec1 = 3;
+		sec2 = 4;
+		checker++;
+		j = but4;
+		}
+		else if (checker == 0){
+		sec = 1;
+		sec1 = 2;
+		sec2 = 3;
+		checker++;
+		j = but4;
+		}
+		else if (checker == 2){
+		j = wa;
+		}
+		break;
+	case but3:
+		if (ele > 700){
+		j = but3;
+		}
+		else {
+		j = wa;
+		}
+		break;
+	case but4:
+		if (ele < 150){
+		j = but4;
+
+		}
+		else{
+		j = wa;
+		}
+		break;
+
+	default:
+		j = st;
+	}
+
+}
+
+
+
+
+
 void joystick(){
 	
 	d = ~PINA & 0x01;
@@ -215,17 +310,17 @@ void show(){
 
 		case a1:
 			p1 = arr3[0];
-			r1 = arr2[1];
+			r1 = arr2[sec];
 			s = a2;
 			break;
 		case a2:
 			p1 = arr3[1];
-			r1 = arr2[2];
+			r1 = arr2[sec1];
 			s = a3;
 			break;
 		case a3:
 			p1 = arr3[2];
-			r1 = arr2[3];
+			r1 = arr2[sec2];
 			s = a1;
 			break;
 		default:
@@ -493,7 +588,7 @@ void ballm(){
 		}
 		break;
 	case rightcheck:
-		if (ballrowarr[itrow] == arr2[2]){
+		if (ballrowarr[itrow] == arr2[sec1]){
 		itcol++;
 		bal = bounce9;
 		}
@@ -558,14 +653,20 @@ DDRB = 0x00; PORTB = 0xFF;
 DDRC = 0xFF; PORTC = 0x00;
 DDRD = 0xFF; PORTD = 0x00;
 unsigned long balltime = 0;
+unsigned long con = 0;
 ADC_init();
 TimerOn();
 TimerSet(1);
+
     while (1) {
 	
 	show();
 	led();
 	joystick();
+	if (con >= 5000){
+	secondplayer();
+	con = 0;
+	}
 	if(balltime >= 8000){
 	ballm();
 	balltime = 0;
@@ -573,6 +674,7 @@ TimerSet(1);
    while(!TimerFlag);
     TimerFlag = 0;
     balltime+=10;
+    con+=10;
     }
     return 1;
 }
