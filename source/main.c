@@ -9,6 +9,8 @@
  */
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
+#include <time.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
@@ -113,6 +115,21 @@ unsigned char sec = 1;
 unsigned char sec1 = 2;
 unsigned char sec2 = 3;
 
+
+
+void bots(){
+	int ra;
+	ra = rand() % 3 + 1;
+	if (ra == 1){
+	
+	}
+	else if (ra == 2){
+
+	}
+	else if (ra == 3){
+
+	}
+}
 
 
 void secondplayer(){
@@ -360,7 +377,7 @@ void ballm(){
 	case bounce:
 			r = ballrowarr[itrow];
 			col = ballcol[itcol];
-			itcol++;
+			itcol++;//3
 			bal = bounce1;
 
 		break;
@@ -368,13 +385,13 @@ void ballm(){
 	case bounce1:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
-		itcol++;
+		itcol++;//4
 		bal = bounce2;
 		break;
 	case bounce2:
 		r = ballrowarr[itrow];
 		col = ballcol[itcol];
-		itcol++;
+		itcol++;//5
 		bal = bounce3;
 		break;
 	case bounce3:
@@ -388,9 +405,6 @@ void ballm(){
 		top = 0;
 		bot = 0;
 		ybounce = 0;
-		itcol = 5;
-		col=ballcol[itcol];
-		r = ballrowarr[itrow];
 		itcol--;
 		bal = bounce4;
 		}
@@ -404,7 +418,7 @@ void ballm(){
 		bal = bounce4;
 		}
 		else if (ballrowarr[itrow] == arr[temp2]){//bottom
-		top = 1;
+		top = 0;
 		bot = 1;
 		ybounce = 1;
 		bound++;
@@ -597,35 +611,44 @@ void ballm(){
 		break;
 	case rightcheck:
 		if (ballrowarr[itrow] == arr2[sec1]){
-		itcol = 1;
+		itcol = 0;
 		ybounce = 0;
 		bal = bounce9;
 		}
-		else if (ballrowarr[itrow] == arr2[sec]){//top
-		bot = 0;
-		top = 1;
-		ybounce = 1;
-		bound--;
-		bal = bounce10;
-		}
+	//	else if (ballrowarr[itrow] == arr2[sec]){//top
+	//	top = 1;
+	//	bot = 0;
+	//	ybounce = 1;
+	//	bound--;
+	//	bal = bounce9;}
+		/*
 		else if (ballrowarr[itrow] == arr2[sec2]){//bot
+		itcol = 1;
 		bot = 1;
 		top = 0;
 		ybounce = 1;
+		bound = 2;
 		bound++;
 		bal = bounce10;
 		}
+		*/
 		else{
 		bal = reset;
 		}
 		break;
 	case bounce9:
-		if (bound == 2 && ybounce == 0){
+		if (ybounce == 0){
+			if(itcol !=5){
+		++itcol;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
-		itcol++;
-		bal = bounce10;
+		bal = bounce9;
+			}
+			else{
+			bal = bouncecheck;
+			}
 		}
+		/*
 		else if (top == 1 && ybounce!= 0){
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
@@ -653,14 +676,17 @@ void ballm(){
 		bal = bounce10;
 
 		}
+		*/
 		break;
+		
 	case bounce10:
 	//	itcol++;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
 		itcol++;
-		bal = bounce11;
+		bal = bounce10;
 	break;
+	/*
 	case bounce11:
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
@@ -679,6 +705,7 @@ void ballm(){
 		itcol++;
 		bal = bouncecheck;
 		break;
+		*/
 	case reset:
 		bal = startball;
 		break;
@@ -709,6 +736,9 @@ unsigned long balltime = 0;
 unsigned long con = 0;
 ADC_init();
 TimerOn();
+srand(time(NULL));
+
+
 TimerSet(1);
 
     while (1) {
