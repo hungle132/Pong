@@ -363,7 +363,9 @@ unsigned char bound = 2;
 unsigned char ybounce = 0;
 unsigned char top = 0;
 unsigned char bot = 0;
-enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bounce7,bounce8,bouncecheck,rightcheck,bounce9,bounce10,bounce11,bounce12,bounce13,reset} bal;
+unsigned char lwin = 0;
+unsigned char rwin = 0;
+enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bounce7,bounce8,bouncecheck,rightcheck,bounce9,bounce10,bounce11,bounce12,bounce13,reset,done} bal;
 void ballm(){
 	switch(bal){
 	case startball:
@@ -373,6 +375,8 @@ void ballm(){
 		itrow = 2;
 		itcol = 2;
 		bound = 2;
+		lwin = 0;
+		rwin = 0;
 		bal = bounce;
 		break;
 	case bounce:
@@ -424,6 +428,7 @@ void ballm(){
 
 		}
 		else{
+			lwin = 1;
 			bal = reset;
 		}
 		break;
@@ -523,6 +528,7 @@ void ballm(){
 		}
 		
 		else{
+			rwin = 1;
 		bal = reset;
 		}
 		break;
@@ -599,8 +605,18 @@ void ballm(){
 		}
 		break;
 	case reset:
-		bal = startball;
+		if (lwin == 1){
+		PORTB = 0x02;
+		}
+		else if (rwin == 1){
+		PORTB = 0x01;
+		}
+		bal = done;
 		break;
+	case done:
+		bal = done;
+		break;
+
 	default:
 		bal = startball;
 		break;
@@ -621,7 +637,7 @@ void ballm(){
 int main(void) {
     /* Insert DDR and PORT initializations */
 DDRA = 0x00; PORTA = 0xFF;
-DDRB = 0x00; PORTB = 0xFF;
+DDRB = 0xFF; PORTB = 0x00;
 DDRC = 0xFF; PORTC = 0x00;
 DDRD = 0xFF; PORTD = 0x00;
 unsigned long balltime = 0;
