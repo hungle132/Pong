@@ -403,17 +403,15 @@ void ballm(){
 
 	case bouncecheck:
 		if (ballrowarr[itrow] == arr[temp1]){//middle
-		top = 0;
-		bot = 0;
 		ybounce = 0;
 		itcol = 5;
-		itcol--;
 		bal = bounce4;
 		}
 		else if (ballrowarr[itrow] == arr[temp]){//top
 		bot = 0;
 		top = 1;
 		ybounce = 1;
+		itcol = 4;
 		bound--;
 		itcol--;
 		itrow--;
@@ -423,6 +421,7 @@ void ballm(){
 		top = 0;
 		bot = 1;
 		ybounce = 1;
+		itcol = 4;
 		bound++;
 		itcol--;
 		itrow++;
@@ -434,13 +433,21 @@ void ballm(){
 		}
 		break;
 	case bounce4:
-		if (ybounce == 0){
 		
+
+		if (ybounce == 0){
+			if (itcol != 0){
+		--itcol;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
-		itcol--;
-		bal = bounce5;
+		bal = bounce4;
 		}
+			else{
+				bal = rightcheck;
+			}
+		}
+		break;
+		/*
 		else if ( top == 1 && ybounce != 0){//moving up
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
@@ -611,6 +618,7 @@ void ballm(){
 
 		}
 		break;
+		*/
 	case rightcheck:
 		if (ballrowarr[itrow] == arr2[sec1]){
 		itcol = 0;
