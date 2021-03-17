@@ -630,7 +630,6 @@ void ballm(){
 		bot = 0;
 		itcol = 0;
 		ybounce = 1;
-		bound--;
 		bal = bounce9;
 		}
 		/*
@@ -708,21 +707,32 @@ void ballm(){
 		if (itcol == 5){
 		bal = bouncecheck;
 		}
+		else if (bound == 0){
+		bal = bounce11;
+		}
 		else{
 		itcol++;
+		--itrow;
+		--bound;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
 		//itcol++;
 		bal = bounce10;
 		}
 	break;
-	/*
+	
 	case bounce11:
+		if (itcol == 5){
+		bal = bouncecheck;
+		}
+		else{
+		++itcol;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
-		itcol++;
-		bal = bounce12;
+		bal = bounce11;
+		}
 		break;
+	/*
 	case bounce12:
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
