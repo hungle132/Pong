@@ -499,178 +499,7 @@ void ballm(){
 		bal = bounce6;
 		}
 		break;
-		/*
-		else if ( top == 1 && ybounce != 0){//moving up
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce5;
-		}
-		else if (bound == 0){//top down
-		top = 0;
-		bot = 1;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce5;
-		}
-		else if (bot == 1 && ybounce != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce5;
 
-		}
-
-		break;
-	case bounce5:
-		if (bound == 2 && ybounce == 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol--;
-		bal = bounce6;
-		}
-		else if (top == 1 && ybounce != 0 && bound != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce6;
-		}
-		else if (bound == 0 && ybounce != 0){
-		top = 0;
-		bot = 1;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce6;
-		}
-		else if (bot == 1 && ybounce != 0 && bound != 4){
-		
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce6;
-		}
-		else if (bound == 4 && ybounce!= 0){
-		top = 1;
-		bot = 0;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce6;
-		}
-		break;
-	case bounce6:
-		if (bound == 2 && ybounce == 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol--;
-		bal = bounce7;
-		}
-		else if (top == 1 && ybounce != 0 && bound != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce7;
-		}
-		else if (bound == 0 && ybounce != 0){
-		top = 0;
-		bot = 1;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce7;
-		}
-		else if (bot == 1 && ybounce != 0 && bound != 4){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce7;
-		}
-		else if (bound == 4 && ybounce != 0){
-		top = 1;
-		bot = 0;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce7;
-		}
-
-
-
-		break;
-	case bounce7:
-		if (bound == 2 && ybounce == 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol--;
-		bal = bounce8;
-		}
-		else if (bot == 1 && ybounce != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = bounce8;
-		}
-		else if (top == 1 && ybounce != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow--;
-		bal = bounce8;
-		}
-		break;
-	case bounce8:
-		if(bound == 2 && ybounce == 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol--;
-		bal = rightcheck;
-		}
-		else if (bot == 1 && ybounce != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol--;
-		itrow++;
-		bal = rightcheck;
-		}
-		else if (top == 1 && ybounce !=0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol--;
-		itrow++;
-		bal = rightcheck;
-
-		}
-		break;
-		*/
 	case rightcheck:
 		if (ballrowarr[itrow] == arr2[sec1]){
 		itcol = 0;
@@ -734,35 +563,6 @@ void ballm(){
 			bal = bounce11;
 			}
 		}
-		/*
-		else if (top == 1 && ybounce!= 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound--;
-		itcol++;
-		itrow--;
-		bal = bounce10;
-		}
-		else if (bound == 0){
-		top = 0;
-		bot = 1;
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol++;
-		itrow++;
-		bal = bounce10;
-		}
-		else if (bot == 1 && ybounce != 0){
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		bound++;
-		itcol++;
-		itrow++;
-		bal = bounce10;
-
-		}
-		*/
 		break;
 		
 	case bounce10:
@@ -778,7 +578,6 @@ void ballm(){
 		--bound;
 		col = ballcol[itcol];
 		r = ballrowarr[itrow];
-		//itcol++;
 		bal = bounce10;
 		}
 	break;
@@ -799,20 +598,6 @@ void ballm(){
 		bal = bounce11;
 		}
 		break;
-	/*
-	case bounce12:
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol++;
-		bal = bounce13;
-		break;
-	case bounce13:
-		col = ballcol[itcol];
-		r = ballrowarr[itrow];
-		itcol++;
-		bal = bouncecheck;
-		break;
-		*/
 	case reset:
 		bal = startball;
 		break;
