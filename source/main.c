@@ -365,8 +365,10 @@ unsigned char top = 0;
 unsigned char bot = 0;
 unsigned char lwin = 0;
 unsigned char rwin = 0;
+unsigned char resbut = 0;
 enum balls{startball,bounce,bounce1,bounce2,bounce3,bounce4,bounce5,bounce6,bounce7,bounce8,bouncecheck,rightcheck,bounce9,bounce10,bounce11,bounce12,bounce13,reset,done} bal;
 void ballm(){
+	resbut = ~PINA & 0x08;
 	switch(bal){
 	case startball:
 		top = 0;
@@ -377,6 +379,7 @@ void ballm(){
 		bound = 2;
 		lwin = 0;
 		rwin = 0;
+		PORTB = 0;
 		bal = bounce;
 		break;
 	case bounce:
@@ -614,7 +617,12 @@ void ballm(){
 		bal = done;
 		break;
 	case done:
+		if (resbut){
+		bal = startball;
+		}
+		else{
 		bal = done;
+		}
 		break;
 
 	default:
