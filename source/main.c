@@ -411,20 +411,15 @@ void ballm(){
 		bot = 0;
 		top = 1;
 		ybounce = 1;
-		itcol = 4;
-		bound--;
-		itcol--;
-		itrow--;
+		itcol = 5;
 		bal = bounce4;
 		}
+		
 		else if (ballrowarr[itrow] == arr[temp2]){//bottom
 		top = 0;
 		bot = 1;
 		ybounce = 1;
-		itcol = 4;
-		bound++;
-		itcol--;
-		itrow++;
+		itcol = 5;
 		bal = bounce4;
 
 		}
@@ -432,6 +427,7 @@ void ballm(){
 			bal = reset;
 		}
 		break;
+		
 	case bounce4:
 		
 
@@ -445,6 +441,62 @@ void ballm(){
 			else{
 				bal = rightcheck;
 			}
+		}
+		else if (top == 1){
+			if (bound != 0){
+			--itrow;
+			--itcol;
+			--bound;
+			top = 1;
+			ybounce = 1;
+			col = ballcol[itcol];
+			r = ballrowarr[itrow];
+			bal = bounce5;
+			}
+		}
+		else if (bot == 1){
+			if (bound != 4){
+			++itrow;
+			--itcol;
+			++bound;
+			bot = 1;
+			ybounce = 1;
+			col = ballcol[itcol];
+			r = ballrowarr[itrow];
+			bal = bounce6;
+			}
+		}
+		break;
+	case bounce5:
+		if (itcol == 0){
+			bal = rightcheck;
+		}
+		else if (bound == 0){
+			bal = bounce6;
+		}
+		else{
+		itcol--;
+		--itrow;
+		--bound;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce5;
+		}
+		break;
+	case bounce6:
+		if (itcol == 0){
+			bal = rightcheck;
+		}
+		else if (bound == 4){
+			bal = bounce5;
+		}
+		else{
+		--itcol;
+		++itrow;
+		++bound;
+		col = ballcol[itcol];
+		r = ballrowarr[itrow];
+		bal = bounce6;
 		}
 		break;
 		/*
