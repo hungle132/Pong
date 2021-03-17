@@ -372,6 +372,7 @@ void ballm(){
 		ybounce = 0;
 		itrow = 2;
 		itcol = 2;
+		bound = 2;
 		bal = bounce;
 		break;
 	case bounce:
@@ -615,12 +616,14 @@ void ballm(){
 		ybounce = 0;
 		bal = bounce9;
 		}
-	//	else if (ballrowarr[itrow] == arr2[sec]){//top
-	//	top = 1;
-	//	bot = 0;
-	//	ybounce = 1;
-	//	bound--;
-	//	bal = bounce9;}
+		else if (ballrowarr[itrow] == arr2[sec]){//top
+		top = 1;
+		bot = 0;
+		itcol = 0;
+		ybounce = 1;
+		bound--;
+		bal = bounce9;
+		}
 		/*
 		else if (ballrowarr[itrow] == arr2[sec2]){//bot
 		itcol = 1;
@@ -646,6 +649,24 @@ void ballm(){
 			}
 			else{
 			bal = bouncecheck;
+			}
+		}
+		else if (top == 1){
+			if( bound != 0 ){
+			--itrow;	
+			++itcol;
+			--bound;
+			top = 1;
+			ybounce = 1;
+			col = ballcol[itcol];
+			r = ballrowarr[itrow];
+			bal = bounce9;
+			}
+			else if (itcol == 5){
+			bal = reset;
+			}
+			else if (bound == 0){
+			bal = reset;
 			}
 		}
 		/*
